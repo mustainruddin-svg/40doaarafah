@@ -2,663 +2,812 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Aplikasi Doa 40 Hari Arafah — Ar-Rahmah</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>40 Doa Hari Arafah — Ar-Rahmah</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Nunito:wght@400;600;700;800&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap');
+/* RESET — universal compatibility */
+html,body,div,span,svg,rect,ellipse,text,path,circle,line,polygon,p,h1,h2,h3,input,button{
+  -webkit-box-sizing:border-box;box-sizing:border-box;
+  margin:0;padding:0;
+}
+*{-webkit-tap-highlight-color:transparent;outline:none}
 
-  :root {
-    --gold: #C8971A;
-    --gold-light: #F5E6C0;
-    --gold-dark: #8A6510;
-    --sky: #00A8E8;
-    --sky-light: #E0F5FD;
-    --sky-dark: #0077A8;
-    --white: #FFFFFF;
-    --offwhite: #FAF8F3;
-    --text: #1A1A1A;
-    --text-muted: #666;
-    --border: #E8DFC0;
-  }
+/* CSS Variables fallback for old WebKit */
+body{
+  font-family:'Nunito',Arial,sans-serif;
+  background:#0a1628;
+  min-height:100vh;
+  display:-webkit-box;display:-webkit-flex;display:flex;
+  -webkit-justify-content:center;justify-content:center;
+}
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+.phone{
+  width:100%;max-width:420px;min-height:100vh;
+  background:#ffffff;
+  display:-webkit-box;display:-webkit-flex;display:flex;
+  -webkit-box-orient:vertical;-webkit-flex-direction:column;flex-direction:column;
+  overflow:hidden;
+}
 
-  body {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    background: var(--offwhite);
-    min-height: 100vh;
-    color: var(--text);
-  }
+.screen{
+  display:none;
+  -webkit-box-orient:vertical;-webkit-flex-direction:column;flex-direction:column;
+  -webkit-box-flex:1;-webkit-flex:1;flex:1;
+  overflow:hidden;
+}
+.screen.active{display:-webkit-box;display:-webkit-flex;display:flex}
 
-  /* ── HERO ── */
-  .hero {
-    background: linear-gradient(160deg, #0A4A6E 0%, #00A8E8 60%, #1A6A9A 100%);
-    padding: 3rem 1.5rem 4rem;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-  }
+/* ===== HERO ===== */
+.hero{
+  position:relative;width:100%;height:345px;
+  -webkit-flex-shrink:0;flex-shrink:0;overflow:hidden;
+}
+.hero-sky{
+  position:absolute;top:0;left:0;right:0;bottom:0;
+  background:#4FB8E8;
+  background:-webkit-linear-gradient(top,#4FB8E8 0%,#2EA0D8 20%,#1A7CB8 50%,#145C90 75%,#0D3D6B 100%);
+  background:linear-gradient(to bottom,#4FB8E8 0%,#2EA0D8 20%,#1A7CB8 50%,#145C90 75%,#0D3D6B 100%);
+}
 
-  .hero::before {
-    content: '';
-    position: absolute;
-    top: -40px; left: 50%;
-    transform: translateX(-50%);
-    width: 500px; height: 500px;
-    background: radial-gradient(circle, rgba(200,151,26,0.15) 0%, transparent 70%);
-    pointer-events: none;
-  }
+/* Sun — no backdrop-filter, pure box-shadow */
+.sun{
+  position:absolute;top:22px;left:50%;
+  width:72px;height:72px;
+  margin-left:-36px;
+  border-radius:50%;
+  background:#FFF0A0;
+  background:-webkit-radial-gradient(center,circle,#FFF8C0 0%,#FFE566 40%,rgba(255,210,80,0) 75%);
+  background:radial-gradient(circle at center,#FFF8C0 0%,#FFE566 40%,rgba(255,210,80,0) 75%);
+  -webkit-box-shadow:0 0 40px 20px rgba(255,230,80,0.35),0 0 80px 40px rgba(255,200,50,0.15);
+  box-shadow:0 0 40px 20px rgba(255,230,80,0.35),0 0 80px 40px rgba(255,200,50,0.15);
+}
 
-  .hero-badge {
-    display: inline-block;
-    background: rgba(200,151,26,0.2);
-    border: 1px solid rgba(200,151,26,0.5);
-    color: #F5E6C0;
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    padding: 6px 18px;
-    border-radius: 100px;
-    margin-bottom: 1.5rem;
-  }
+/* Clouds — solid rgba, NO backdrop-filter */
+.cloud{
+  position:absolute;
+  background:rgba(255,255,255,0.85);
+  border-radius:50px;
+}
+.cloud::before,.cloud::after{
+  content:'';position:absolute;
+  background:rgba(255,255,255,0.85);
+  border-radius:50%;
+}
+.c1{width:88px;height:20px;top:30px;left:10px;
+  -webkit-animation:drift1 9s ease-in-out infinite;animation:drift1 9s ease-in-out infinite}
+.c1::before{width:38px;height:30px;top:-13px;left:10px}
+.c1::after{width:28px;height:22px;top:-9px;left:36px}
+.c2{width:66px;height:17px;top:48px;right:18px;
+  -webkit-animation:drift2 12s ease-in-out infinite;animation:drift2 12s ease-in-out infinite}
+.c2::before{width:30px;height:24px;top:-10px;left:8px}
+.c2::after{width:22px;height:18px;top:-7px;left:30px}
+.c3{width:44px;height:13px;top:24px;right:88px;opacity:.75}
+.c3::before{width:20px;height:17px;top:-8px;left:6px}
 
-  .hero-arabic {
-    font-family: 'Amiri', serif;
-    font-size: clamp(2rem, 6vw, 3.5rem);
-    color: var(--gold-light);
-    margin-bottom: 0.5rem;
-    line-height: 1.4;
-    text-shadow: 0 2px 12px rgba(0,0,0,0.3);
-  }
+@-webkit-keyframes drift1{0%,100%{-webkit-transform:translateX(0)}50%{-webkit-transform:translateX(8px)}}
+@keyframes drift1{0%,100%{transform:translateX(0)}50%{transform:translateX(8px)}}
+@-webkit-keyframes drift2{0%,100%{-webkit-transform:translateX(0)}50%{-webkit-transform:translateX(-6px)}}
+@keyframes drift2{0%,100%{transform:translateX(0)}50%{transform:translateX(-6px)}}
 
-  .hero-title {
-    font-size: clamp(1.3rem, 4vw, 2rem);
-    font-weight: 600;
-    color: #FFFFFF;
-    margin-bottom: 0.75rem;
-    line-height: 1.3;
-  }
+/* Crescent */
+.crescent{
+  position:absolute;top:18px;right:32px;
+  font-size:22px;color:rgba(255,235,120,0.85);
+  -webkit-animation:moonGlow 4s ease-in-out infinite;animation:moonGlow 4s ease-in-out infinite;
+}
+@-webkit-keyframes moonGlow{0%,100%{opacity:.7}50%{opacity:1}}
+@keyframes moonGlow{0%,100%{opacity:.7}50%{opacity:1}}
 
-  .hero-sub {
-    font-size: 15px;
-    color: rgba(255,255,255,0.8);
-    max-width: 520px;
-    margin: 0 auto 2rem;
-    line-height: 1.7;
-  }
+/* Mosque + Pilgrims: inline SVG, position absolute */
+.mosque-svg{position:absolute;bottom:82px;left:50%;margin-left:-140px}
+.pilgrims-svg{position:absolute;bottom:80px;left:50%;margin-left:-110px;opacity:.5}
 
-  .hero-features {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 1.5rem;
-  }
+/* Desert ground — no border-radius shorthand issue */
+.ground{
+  position:absolute;bottom:0;width:100%;height:86px;
+  background:#B08040;
+  background:-webkit-linear-gradient(top,#C8A56A 0%,#B08040 50%,#8B6028 100%);
+  background:linear-gradient(to bottom,#C8A56A 0%,#B08040 50%,#8B6028 100%);
+  border-top-left-radius:55%;border-top-right-radius:55%;
+}
 
-  .hero-feat {
-    background: rgba(255,255,255,0.12);
-    border: 1px solid rgba(255,255,255,0.2);
-    color: #fff;
-    font-size: 13px;
-    padding: 6px 14px;
-    border-radius: 100px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
+/* Tasbih beads */
+.tasbih{
+  position:absolute;right:13px;bottom:74px;
+  display:-webkit-box;display:-webkit-flex;display:flex;
+  -webkit-box-orient:vertical;-webkit-flex-direction:column;flex-direction:column;
+  -webkit-align-items:center;align-items:center;
+  gap:3px;opacity:.72;
+}
+/* gap fallback for old webkit */
+.tasbih > *{margin:1.5px 0}
+.bead{
+  width:9px;height:9px;border-radius:50%;
+  background:#C9A84C;
+  -webkit-box-shadow:0 1px 3px rgba(0,0,0,0.25);box-shadow:0 1px 3px rgba(0,0,0,0.25);
+}
+.bead-big{
+  width:13px;height:13px;border-radius:50%;
+  background:#F0D27A;
+  -webkit-box-shadow:0 1px 4px rgba(0,0,0,0.3);box-shadow:0 1px 4px rgba(0,0,0,0.3);
+}
+.bead-line{width:1.5px;height:5px;background:rgba(240,210,100,0.55);border-radius:1px}
 
-  .hero-feat svg { width: 14px; height: 14px; flex-shrink: 0; }
+/* Sparkles */
+.sparkle{position:absolute;color:rgba(255,235,120,0.78);font-size:11px;
+  -webkit-animation:twinkle 3s ease-in-out infinite;animation:twinkle 3s ease-in-out infinite}
+.sp1{top:55px;left:22px;-webkit-animation-delay:.5s;animation-delay:.5s}
+.sp2{top:40px;right:52px;font-size:9px;-webkit-animation-delay:1.2s;animation-delay:1.2s}
+.sp3{top:75px;left:60px;font-size:8px;-webkit-animation-delay:1.8s;animation-delay:1.8s}
+.sp4{top:62px;right:20px;font-size:10px;-webkit-animation-delay:.3s;animation-delay:.3s}
+@-webkit-keyframes twinkle{0%,100%{opacity:.4}-webkit-transform:scale(.9)50%{opacity:1;-webkit-transform:scale(1.1)}}
+@keyframes twinkle{0%,100%{opacity:.4;transform:scale(.9)}50%{opacity:1;transform:scale(1.1)}}
 
-  /* ── WAVE DIVIDER ── */
-  .wave {
-    display: block;
-    margin-top: -2px;
-    width: 100%;
-  }
+/* ===== HERO TEXT ===== */
+.hero-text{
+  position:absolute;top:0;left:0;right:0;
+  padding:18px 20px 0;
+  display:-webkit-box;display:-webkit-flex;display:flex;
+  -webkit-box-orient:vertical;-webkit-flex-direction:column;flex-direction:column;
+  -webkit-align-items:center;align-items:center;
+  z-index:10;
+}
+.brand-row{
+  display:-webkit-box;display:-webkit-flex;display:flex;
+  -webkit-align-items:center;align-items:center;
+  margin-bottom:10px;
+}
+.brand-dot{
+  width:26px;height:26px;
+  background:rgba(255,255,255,0.18);
+  border:1px solid rgba(255,255,255,0.4);
+  border-radius:50%;
+  display:-webkit-box;display:-webkit-flex;display:flex;
+  -webkit-align-items:center;align-items:center;
+  -webkit-justify-content:center;justify-content:center;
+  font-size:13px;
+  margin-right:7px;
+}
+.brand-name{color:rgba(255,255,255,0.82);font-size:9.5px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase}
+.hero-title{
+  font-family:'Lora',Georgia,serif;font-size:31px;font-weight:700;
+  color:#ffffff;text-align:center;line-height:1.1;
+  text-shadow:0 2px 18px rgba(0,0,0,0.28);
+  margin-bottom:4px;
+}
+.hero-title span{color:#F0D27A}
+.hero-arabic{
+  font-family:'Amiri',Georgia,serif;font-size:25px;
+  color:rgba(255,255,255,0.94);
+  text-shadow:0 2px 10px rgba(0,0,0,0.22);
+  direction:rtl;margin-bottom:9px;letter-spacing:2px;
+}
+.gold-pill{
+  display:-webkit-inline-box;display:-webkit-inline-flex;display:inline-flex;
+  -webkit-align-items:center;align-items:center;
+  background:#C9A84C;
+  color:#00253A;font-size:10px;font-weight:900;
+  padding:5px 18px;border-radius:20px;letter-spacing:1px;
+  -webkit-box-shadow:0 2px 14px rgba(201,168,76,0.45);box-shadow:0 2px 14px rgba(201,168,76,0.45);
+  margin-bottom:3px;
+}
+.hero-sub{color:rgba(255,255,255,0.68);font-size:11px;font-weight:600}
 
-  /* ── MAIN ── */
-  .main {
-    max-width: 680px;
-    margin: 0 auto;
-    padding: 2.5rem 1.5rem 4rem;
-  }
+/* ===== SEARCH — NO backdrop-filter ===== */
+.search-wrap{
+  -webkit-flex-shrink:0;flex-shrink:0;
+  background:#0077AA;
+  padding:12px 16px 14px;
+}
+.search-box{
+  display:-webkit-box;display:-webkit-flex;display:flex;
+  -webkit-align-items:center;align-items:center;
+  background:rgba(255,255,255,0.22);
+  border:1.5px solid rgba(255,255,255,0.5);
+  border-radius:50px;padding:11px 18px;
+}
+.search-box input{
+  -webkit-box-flex:1;-webkit-flex:1;flex:1;
+  background:transparent;border:none;
+  font-family:'Nunito',Arial,sans-serif;font-size:14px;color:#ffffff;
+  margin-left:10px;
+  -webkit-appearance:none;appearance:none;
+}
+.search-box input::-webkit-input-placeholder{color:rgba(255,255,255,0.6)}
+.search-box input::placeholder{color:rgba(255,255,255,0.6)}
+.search-ico{color:rgba(255,255,255,0.78);font-size:17px;-webkit-flex-shrink:0;flex-shrink:0}
 
-  /* ── PREVIEW CARDS ── */
-  .preview-section {
-    margin-bottom: 3rem;
-  }
+/* ===== LIST ===== */
+.home-list{
+  -webkit-box-flex:1;-webkit-flex:1;flex:1;
+  overflow-y:auto;-webkit-overflow-scrolling:touch;
+  padding:14px 14px 90px;background:#EFF8FD;
+}
+.sec-label{font-size:10px;font-weight:800;color:#336A88;letter-spacing:1.5px;text-transform:uppercase;margin:0 0 10px 2px}
 
-  .section-label {
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--gold-dark);
-    margin-bottom: 1rem;
-    text-align: center;
-  }
+.doa-card{
+  background:#ffffff;border-radius:14px;
+  border:1px solid rgba(0,168,232,0.12);
+  padding:14px 16px;margin-bottom:10px;
+  display:-webkit-box;display:-webkit-flex;display:flex;
+  -webkit-align-items:center;align-items:center;
+  cursor:pointer;
+  -webkit-box-shadow:0 2px 10px rgba(0,37,58,0.07);box-shadow:0 2px 10px rgba(0,37,58,0.07);
+  -webkit-animation:fadeUp .35s both;animation:fadeUp .35s both;
+  -webkit-tap-highlight-color:transparent;
+  /* NO transform on hover — causes flicker on Xiaomi */
+}
+.doa-card:active{background:#EFF8FD}
+.doa-num{
+  width:36px;height:36px;-webkit-flex-shrink:0;flex-shrink:0;border-radius:50%;
+  background:#0077AA;
+  display:-webkit-box;display:-webkit-flex;display:flex;
+  -webkit-align-items:center;align-items:center;-webkit-justify-content:center;justify-content:center;
+  color:#ffffff;font-size:12px;font-weight:800;margin-right:12px;
+}
+.doa-info{-webkit-box-flex:1;-webkit-flex:1;flex:1;min-width:0}
+.doa-title{font-size:13px;font-weight:700;color:#00253A;margin-bottom:3px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.doa-preview{font-family:'Amiri',Georgia,serif;font-size:14px;color:#336A88;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;direction:rtl;text-align:right}
+.doa-arrow{color:#00A8E8;font-size:18px;-webkit-flex-shrink:0;flex-shrink:0;margin-left:8px}
+.fav-btn{font-size:16px;cursor:pointer;-webkit-flex-shrink:0;flex-shrink:0;margin-left:6px;line-height:1;background:none;border:none;padding:0}
 
-  .preview-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
-  }
+@-webkit-keyframes fadeUp{from{opacity:0;-webkit-transform:translateY(14px)}to{opacity:1;-webkit-transform:translateY(0)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
 
-  .preview-card {
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 1rem;
-    text-align: center;
-  }
+/* ===== DETAIL ===== */
+.det-header{
+  background:#00253A;
+  -webkit-flex-shrink:0;flex-shrink:0;
+  -webkit-box-shadow:0 4px 20px rgba(0,0,0,0.25);box-shadow:0 4px 20px rgba(0,0,0,0.25);
+}
+.prog-bar{height:3px;background:rgba(255,255,255,0.1)}
+.prog-fill{
+  height:100%;background:#00A8E8;
+  -webkit-transition:width .4s;transition:width .4s;
+}
+.det-nav{
+  display:-webkit-box;display:-webkit-flex;display:flex;
+  -webkit-align-items:center;align-items:center;
+  padding:13px 16px;
+}
+.back-btn{
+  width:38px;height:38px;-webkit-flex-shrink:0;flex-shrink:0;
+  background:rgba(255,255,255,0.08);
+  border:1px solid rgba(0,168,232,0.4);border-radius:50%;
+  display:-webkit-box;display:-webkit-flex;display:flex;
+  -webkit-align-items:center;align-items:center;-webkit-justify-content:center;justify-content:center;
+  cursor:pointer;color:#00A8E8;font-size:18px;font-weight:700;
+  margin-right:10px;
+}
+.det-nav-title{
+  -webkit-box-flex:1;-webkit-flex:1;flex:1;
+  font-family:'Lora',Georgia,serif;font-size:14px;font-weight:600;
+  color:#ffffff;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;
+}
+.det-nav-num{
+  font-size:11px;color:#00A8E8;background:rgba(0,168,232,0.15);
+  padding:4px 10px;border-radius:20px;font-weight:700;
+  -webkit-flex-shrink:0;flex-shrink:0;margin-left:8px;
+}
+.det-fav-btn{font-size:20px;cursor:pointer;-webkit-flex-shrink:0;flex-shrink:0;margin-left:8px;background:none;border:none;padding:0}
 
-  .preview-icon {
-    width: 40px; height: 40px;
-    border-radius: 10px;
-    background: var(--sky-light);
-    display: flex; align-items: center; justify-content: center;
-    margin: 0 auto 8px;
-  }
+.det-body{
+  -webkit-box-flex:1;-webkit-flex:1;flex:1;
+  overflow-y:auto;-webkit-overflow-scrolling:touch;
+  padding:20px 16px 30px;background:#EFF8FD;
+}
 
-  .preview-icon svg { width: 22px; height: 22px; color: var(--sky-dark); }
+.arabic-card{
+  background:#003A5C;
+  border-radius:20px;padding:28px 22px;margin-bottom:16px;text-align:right;
+  -webkit-box-shadow:0 8px 32px rgba(0,37,58,0.3);box-shadow:0 8px 32px rgba(0,37,58,0.3);
+}
+.arabic-text{
+  font-family:'Amiri',Georgia,serif;font-size:28px;line-height:2.1;
+  color:#F0D27A;direction:rtl;
+}
+.lat-card{
+  background:#ffffff;border-radius:16px;padding:18px 20px;margin-bottom:12px;
+  border-left:4px solid #00A8E8;
+  -webkit-box-shadow:0 2px 12px rgba(0,168,232,0.08);box-shadow:0 2px 12px rgba(0,168,232,0.08);
+}
+.trn-card{
+  background:#ffffff;border-radius:16px;padding:18px 20px;margin-bottom:12px;
+  border-left:4px solid #C9A84C;
+  -webkit-box-shadow:0 2px 12px rgba(201,168,76,0.08);box-shadow:0 2px 12px rgba(201,168,76,0.08);
+}
+.card-lbl{font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;color:#0077AA}
+.trn-card .card-lbl{color:#8B6914}
+.lat-text{font-family:'Lora',Georgia,serif;font-style:italic;font-size:15px;line-height:1.8;color:#00253A}
+.trn-text{font-size:14px;line-height:1.8;color:#00253A;font-weight:600}
+.src-badge{
+  display:-webkit-inline-box;display:-webkit-inline-flex;display:inline-flex;
+  -webkit-align-items:center;align-items:center;
+  background:#FFF8E1;border:1px solid rgba(201,168,76,0.3);border-radius:20px;
+  padding:6px 14px;font-size:12px;color:#8B6914;font-weight:700;margin-bottom:16px;
+}
+.src-badge span:first-child{margin-right:6px}
+.act-row{
+  display:-webkit-box;display:-webkit-flex;display:flex;
+  margin-bottom:14px;
+}
+.act-row > * + *{margin-left:10px}
+.act-btn{
+  -webkit-box-flex:1;-webkit-flex:1;flex:1;
+  background:#EFF8FD;border:none;border-radius:12px;padding:12px 8px;
+  display:-webkit-box;display:-webkit-flex;display:flex;
+  -webkit-box-orient:vertical;-webkit-flex-direction:column;flex-direction:column;
+  -webkit-align-items:center;align-items:center;
+  cursor:pointer;color:#0077AA;
+  font-family:'Nunito',Arial,sans-serif;
+  -webkit-tap-highlight-color:transparent;
+}
+.act-btn:active{background:#00A8E8;color:#ffffff}
+.act-btn .ico{font-size:19px;margin-bottom:4px}
+.act-btn .lbl{font-size:10px;font-weight:800}
+.nav-row{display:-webkit-box;display:-webkit-flex;display:flex}
+.nav-row > * + *{margin-left:10px}
+.nav-btn{
+  -webkit-box-flex:1;-webkit-flex:1;flex:1;
+  padding:13px;border:none;border-radius:12px;
+  font-family:'Nunito',Arial,sans-serif;font-size:13px;font-weight:800;cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+}
+.nav-btn:disabled{opacity:.4;cursor:default}
+.nav-btn.prev{background:rgba(0,168,232,0.1);color:#0077AA}
+.nav-btn.nxt{background:#0077AA;color:#ffffff}
+.doa-footer{text-align:center;padding:18px 0 4px;font-size:11px;color:#78909C;font-weight:700;letter-spacing:1px}
 
-  .preview-card h4 {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--text);
-    margin-bottom: 4px;
-  }
+/* FAV & ABOUT */
+.inner-hdr{
+  background:#00253A;padding:44px 24px 22px;
+  -webkit-flex-shrink:0;flex-shrink:0;
+}
+.inner-hdr h2{font-size:22px;font-weight:800;color:#ffffff}
+.inner-hdr p{font-size:12px;color:rgba(255,255,255,0.55);margin-top:3px}
+.fav-list{
+  -webkit-box-flex:1;-webkit-flex:1;flex:1;
+  overflow-y:auto;-webkit-overflow-scrolling:touch;
+  padding:14px 14px 90px;background:#EFF8FD;
+}
+.empty{text-align:center;padding:60px 20px;color:#78909C}
+.empty .emo{font-size:48px;margin-bottom:12px}
+.empty p{font-size:14px;line-height:1.6}
 
-  .preview-card p {
-    font-size: 12px;
-    color: var(--text-muted);
-    line-height: 1.5;
-  }
+.abt-hdr{
+  background:#0077AA;padding:44px 24px 28px;text-align:center;
+  -webkit-flex-shrink:0;flex-shrink:0;
+}
+.abt-hdr .logo{font-size:44px;margin-bottom:8px}
+.abt-hdr h2{font-family:'Lora',Georgia,serif;font-size:20px;font-weight:700;color:#ffffff}
+.abt-hdr p{font-size:11px;color:rgba(255,255,255,0.65);margin-top:3px}
+.abt-body{
+  -webkit-box-flex:1;-webkit-flex:1;flex:1;
+  overflow-y:auto;-webkit-overflow-scrolling:touch;
+  padding:18px 16px 90px;background:#EFF8FD;
+}
+.abt-card{background:#ffffff;border-radius:18px;padding:18px 20px;margin-bottom:12px;
+  -webkit-box-shadow:0 2px 10px rgba(0,37,58,0.07);box-shadow:0 2px 10px rgba(0,37,58,0.07)}
+.abt-card h3{font-size:13px;font-weight:800;color:#00253A;margin-bottom:8px}
+.abt-card p{font-size:13px;color:#336A88;line-height:1.65}
+.feat-grid{display:-webkit-box;display:-webkit-flex;display:flex;-webkit-flex-wrap:wrap;flex-wrap:wrap;margin:-5px}
+.feat-item{width:calc(50% - 10px);margin:5px;background:#EFF8FD;border-radius:12px;padding:14px;text-align:center}
+.feat-item .ico{font-size:22px;margin-bottom:5px}
+.feat-item p{font-size:11px;font-weight:700;color:#00253A}
 
-  /* ── FORM CARD ── */
-  .form-card {
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 8px 40px rgba(0,168,232,0.08);
-  }
-
-  .form-header {
-    background: linear-gradient(135deg, var(--gold) 0%, #E8B830 100%);
-    padding: 1.5rem 2rem;
-    display: flex;
-    align-items: center;
-    gap: 14px;
-  }
-
-  .form-header-icon {
-    width: 48px; height: 48px;
-    background: rgba(255,255,255,0.25);
-    border-radius: 12px;
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0;
-  }
-
-  .form-header-icon svg { width: 26px; height: 26px; color: #fff; }
-
-  .form-header h2 {
-    font-size: 18px;
-    font-weight: 600;
-    color: #fff;
-    margin-bottom: 3px;
-  }
-
-  .form-header p {
-    font-size: 13px;
-    color: rgba(255,255,255,0.85);
-  }
-
-  .form-body {
-    padding: 2rem;
-  }
-
-  .field {
-    margin-bottom: 1.25rem;
-  }
-
-  .field label {
-    display: block;
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--text);
-    margin-bottom: 6px;
-  }
-
-  .field label span.req { color: var(--sky); }
-
-  .field input {
-    width: 100%;
-    padding: 11px 14px;
-    border: 1.5px solid var(--border);
-    border-radius: 10px;
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 14px;
-    color: var(--text);
-    background: var(--offwhite);
-    outline: none;
-    transition: border-color 0.2s, background 0.2s;
-  }
-
-  .field input:focus {
-    border-color: var(--sky);
-    background: #fff;
-  }
-
-  .field input::placeholder { color: #aaa; }
-
-  .field-hint {
-    font-size: 12px;
-    color: var(--text-muted);
-    margin-top: 5px;
-  }
-
-  .btn-submit {
-    width: 100%;
-    padding: 14px;
-    background: linear-gradient(135deg, #00A8E8 0%, #0077A8 100%);
-    color: #fff;
-    border: none;
-    border-radius: 12px;
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    transition: opacity 0.2s, transform 0.15s;
-    margin-top: 1.5rem;
-  }
-
-  .btn-submit:hover { opacity: 0.92; transform: translateY(-1px); }
-  .btn-submit:active { transform: scale(0.98); }
-  .btn-submit svg { width: 20px; height: 20px; }
-
-  .privacy-note {
-    text-align: center;
-    font-size: 12px;
-    color: var(--text-muted);
-    margin-top: 1rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 5px;
-  }
-
-  /* ── SUCCESS STATE ── */
-  .success-state {
-    display: none;
-    padding: 2.5rem 2rem;
-    text-align: center;
-  }
-
-  .success-state.active { display: block; }
-  .form-body.hidden { display: none; }
-
-  .success-icon {
-    width: 80px; height: 80px;
-    background: #E8F8F0;
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    margin: 0 auto 1.5rem;
-  }
-
-  .success-icon svg { width: 40px; height: 40px; color: #1DB368; }
-
-  .success-state h3 {
-    font-size: 20px;
-    font-weight: 600;
-    color: var(--text);
-    margin-bottom: 0.5rem;
-  }
-
-  .success-state p {
-    font-size: 14px;
-    color: var(--text-muted);
-    line-height: 1.7;
-    margin-bottom: 2rem;
-  }
-
-  /* ── HOW TO USE ── */
-  .howto-card {
-    background: linear-gradient(135deg, #EAF7FF 0%, var(--offwhite) 100%);
-    border: 1px solid #B8E4F7;
-    border-radius: 16px;
-    padding: 1.5rem;
-    text-align: left;
-  }
-
-  .howto-card h4 {
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--sky-dark);
-    margin-bottom: 1rem;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .howto-card h4 svg { width: 18px; height: 18px; }
-
-  .step-list { list-style: none; counter-reset: steps; }
-
-  .step-list li {
-    counter-increment: steps;
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    padding: 8px 0;
-    border-bottom: 1px solid rgba(0,168,232,0.1);
-    font-size: 13px;
-    color: var(--text);
-    line-height: 1.6;
-  }
-
-  .step-list li:last-child { border-bottom: none; }
-
-  .step-num {
-    flex-shrink: 0;
-    width: 24px; height: 24px;
-    background: var(--sky);
-    color: #fff;
-    border-radius: 50%;
-    font-size: 12px;
-    font-weight: 700;
-    display: flex; align-items: center; justify-content: center;
-    margin-top: 1px;
-  }
-
-  .btn-download-again {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    margin-top: 1rem;
-    padding: 10px 20px;
-    background: var(--white);
-    border: 1.5px solid var(--sky);
-    border-radius: 10px;
-    color: var(--sky-dark);
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.2s;
-  }
-
-  .btn-download-again:hover { background: var(--sky-light); }
-  .btn-download-again svg { width: 16px; height: 16px; }
-
-  /* ── FOOTER ── */
-  .footer {
-    text-align: center;
-    padding: 2rem 1.5rem;
-    font-size: 12px;
-    color: var(--text-muted);
-    border-top: 1px solid var(--border);
-  }
-
-  .footer strong { color: var(--sky-dark); }
-
-  /* ── LOADING SPINNER ── */
-  .spinner {
-    display: none;
-    width: 20px; height: 20px;
-    border: 2px solid rgba(255,255,255,0.4);
-    border-top-color: #fff;
-    border-radius: 50%;
-    animation: spin 0.7s linear infinite;
-  }
-
-  @keyframes spin { to { transform: rotate(360deg); } }
-
-  .btn-submit.loading .btn-text { display: none; }
-  .btn-submit.loading .spinner { display: block; }
-
-  @media (max-width: 480px) {
-    .preview-grid { grid-template-columns: 1fr 1fr; }
-    .form-body { padding: 1.5rem; }
-    .form-header { padding: 1.25rem 1.5rem; }
-  }
+/* ===== BOTTOM NAV ===== */
+.bot-nav{
+  position:fixed;bottom:0;left:50%;
+  -webkit-transform:translateX(-50%);transform:translateX(-50%);
+  width:100%;max-width:420px;
+  background:#ffffff;
+  border-top:1px solid rgba(0,168,232,0.15);
+  display:-webkit-box;display:-webkit-flex;display:flex;
+  -webkit-box-shadow:0 -3px 16px rgba(0,37,58,0.1);box-shadow:0 -3px 16px rgba(0,37,58,0.1);
+  z-index:200;
+}
+.nav-item{
+  -webkit-box-flex:1;-webkit-flex:1;flex:1;
+  padding:10px 4px 12px;
+  display:-webkit-box;display:-webkit-flex;display:flex;
+  -webkit-box-orient:vertical;-webkit-flex-direction:column;flex-direction:column;
+  -webkit-align-items:center;align-items:center;
+  cursor:pointer;
+  color:#78909C;font-size:10px;font-weight:800;
+  border:none;background:transparent;
+  font-family:'Nunito',Arial,sans-serif;
+  -webkit-tap-highlight-color:transparent;
+}
+.nav-item .ni{font-size:21px;margin-bottom:3px;display:block}
+.nav-item.active{color:#00A8E8}
 </style>
 </head>
 <body>
+<div class="phone">
 
-<!-- HERO -->
-<div class="hero">
-  <div class="hero-badge">✦ Program Spiritual Keluarga Muslim</div>
-  <div class="hero-arabic">أَيَّامُ عَرَفَةَ</div>
-  <h1 class="hero-title">Aplikasi Doa 40 Hari Arafah</h1>
-  <p class="hero-sub">Panduan dzikir dan doa harian berbasis web — offline, gratis, tanpa iklan. Bisa digunakan seluruh anggota keluarga langsung dari browser.</p>
-  <div class="hero-features">
-    <span class="hero-feat">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-      Offline, tanpa internet
-    </span>
-    <span class="hero-feat">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12" y2="18.01"/></svg>
-      Buka di HP & laptop
-    </span>
-    <span class="hero-feat">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-      Gratis untuk semua
-    </span>
+<!-- HOME -->
+<div class="screen active" id="screen-home">
+  <div class="hero">
+    <div class="hero-sky"></div>
+    <div class="sun"></div>
+    <div class="cloud c1"></div>
+    <div class="cloud c2"></div>
+    <div class="cloud c3"></div>
+    <span class="crescent">&#9789;</span>
+
+    <!-- Birds -->
+    <svg style="position:absolute;top:46px;left:50%;margin-left:-42px" width="84" height="22" viewBox="0 0 84 22">
+      <path d="M4,13 Q9,7 14,13" fill="none" stroke="rgba(20,60,100,0.5)" stroke-width="1.8" stroke-linecap="round"/>
+      <path d="M24,10 Q29,4 34,10" fill="none" stroke="rgba(20,60,100,0.45)" stroke-width="1.6" stroke-linecap="round"/>
+      <path d="M48,14 Q52,9 56,14" fill="none" stroke="rgba(20,60,100,0.4)" stroke-width="1.5" stroke-linecap="round"/>
+      <path d="M66,10 Q70,5 74,10" fill="none" stroke="rgba(20,60,100,0.35)" stroke-width="1.4" stroke-linecap="round"/>
+    </svg>
+
+    <!-- Mosque -->
+    <svg class="mosque-svg" width="280" height="118" viewBox="0 0 280 118">
+      <rect x="44" y="36" width="16" height="68" fill="rgba(255,255,255,0.2)" rx="2"/>
+      <path d="M44,36 Q52,20 60,36Z" fill="rgba(255,255,255,0.22)"/>
+      <polygon points="52,12 48,30 56,30" fill="rgba(240,210,100,0.78)"/>
+      <line x1="52" y1="6" x2="52" y2="12" stroke="rgba(240,210,100,0.7)" stroke-width="1.5"/>
+      <rect x="220" y="36" width="16" height="68" fill="rgba(255,255,255,0.2)" rx="2"/>
+      <path d="M220,36 Q228,20 236,36Z" fill="rgba(255,255,255,0.22)"/>
+      <polygon points="228,12 224,30 232,30" fill="rgba(240,210,100,0.78)"/>
+      <line x1="228" y1="6" x2="228" y2="12" stroke="rgba(240,210,100,0.7)" stroke-width="1.5"/>
+      <ellipse cx="100" cy="64" rx="18" ry="16" fill="rgba(255,255,255,0.17)"/>
+      <rect x="82" y="64" width="36" height="42" fill="rgba(255,255,255,0.15)" rx="2"/>
+      <ellipse cx="180" cy="64" rx="18" ry="16" fill="rgba(255,255,255,0.17)"/>
+      <rect x="162" y="64" width="36" height="42" fill="rgba(255,255,255,0.15)" rx="2"/>
+      <ellipse cx="140" cy="52" rx="44" ry="42" fill="rgba(255,255,255,0.22)"/>
+      <rect x="96" y="52" width="88" height="54" fill="rgba(255,255,255,0.2)" rx="2"/>
+      <text x="133" y="18" font-size="18" fill="rgba(240,210,100,0.9)" font-family="serif">&#9789;</text>
+      <ellipse cx="140" cy="68" rx="12" ry="10" fill="rgba(255,255,255,0.28)"/>
+      <ellipse cx="112" cy="80" rx="7" ry="6" fill="rgba(255,255,255,0.22)"/>
+      <ellipse cx="168" cy="80" rx="7" ry="6" fill="rgba(255,255,255,0.22)"/>
+      <text x="14" y="58" font-size="11" fill="rgba(240,210,100,0.65)">&#10022;</text>
+      <text x="252" y="52" font-size="9" fill="rgba(240,210,100,0.6)">&#10022;</text>
+    </svg>
+
+    <!-- Pilgrims -->
+    <svg class="pilgrims-svg" width="220" height="30" viewBox="0 0 220 30">
+      <g fill="rgba(255,255,255,0.55)">
+        <ellipse cx="16" cy="9" rx="5" ry="5"/><rect x="12" y="13" width="8" height="15" rx="2"/>
+        <ellipse cx="38" cy="9" rx="5" ry="5"/><rect x="34" y="13" width="8" height="15" rx="2"/>
+        <ellipse cx="60" cy="7" rx="5" ry="5"/><rect x="56" y="11" width="8" height="17" rx="2"/>
+        <ellipse cx="82" cy="9" rx="5" ry="5"/><rect x="78" y="13" width="8" height="15" rx="2"/>
+        <ellipse cx="104" cy="8" rx="5" ry="5"/><rect x="100" y="12" width="8" height="16" rx="2"/>
+        <ellipse cx="126" cy="9" rx="5" ry="5"/><rect x="122" y="13" width="8" height="15" rx="2"/>
+        <ellipse cx="148" cy="7" rx="5" ry="5"/><rect x="144" y="11" width="8" height="17" rx="2"/>
+        <ellipse cx="170" cy="9" rx="5" ry="5"/><rect x="166" y="13" width="8" height="15" rx="2"/>
+        <ellipse cx="192" cy="8" rx="5" ry="5"/><rect x="188" y="12" width="8" height="16" rx="2"/>
+      </g>
+    </svg>
+
+    <div class="ground"></div>
+
+    <div class="tasbih">
+      <div class="bead"></div><div class="bead-line"></div>
+      <div class="bead"></div><div class="bead-line"></div>
+      <div class="bead"></div><div class="bead-line"></div>
+      <div class="bead"></div><div class="bead-line"></div>
+      <div class="bead"></div><div class="bead-line"></div>
+      <div class="bead-big"></div>
+    </div>
+
+    <span class="sparkle sp1">&#10022;</span>
+    <span class="sparkle sp2">&#10022;</span>
+    <span class="sparkle sp3">&#10022;</span>
+    <span class="sparkle sp4">&#10022;</span>
+
+    <div class="hero-text">
+      <div class="brand-row">
+        <div class="brand-dot">&#128332;</div>
+        <span class="brand-name">Yayasan Ar-Rahmah Sulawesi</span>
+      </div>
+      <div class="hero-title"><span>40 Doa</span> Hari Arafah</div>
+      <div class="hero-arabic">&#1610;&#1614;&#1608;&#1618;&#1605;&#1615; &#1593;&#1614;&#1585;&#1614;&#1601;&#1614;&#1577;&#1ى</div>
+      <div class="gold-pill">&#10022; KUMPULAN DOA PILIHAN &#10022;</div>
+      <div class="hero-sub">untuk Hari Terbaik dalam Setahun</div>
+    </div>
+  </div>
+
+  <div class="search-wrap">
+    <div class="search-box">
+      <span class="search-ico">&#128269;</span>
+      <input type="search" id="searchInput" placeholder="Cari judul atau terjemahan doa..." oninput="filterDoa()" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+    </div>
+  </div>
+  <div class="home-list" id="doaList"></div>
+</div>
+
+<!-- DETAIL -->
+<div class="screen" id="screen-detail">
+  <div class="det-header">
+    <div class="prog-bar"><div class="prog-fill" id="progressFill" style="width:0%"></div></div>
+    <div class="det-nav">
+      <div class="back-btn" onclick="goHome()">&#8592;</div>
+      <div class="det-nav-title" id="detailTitle">&#8212;</div>
+      <div class="det-nav-num" id="detailNum">1/40</div>
+      <button class="det-fav-btn" id="detailFavBtn" onclick="toggleDetailFav()">&#129293;</button>
+    </div>
+  </div>
+  <div class="det-body" id="detailBody"></div>
+</div>
+
+<!-- FAVORIT -->
+<div class="screen" id="screen-fav">
+  <div class="inner-hdr"><h2>&#10084;&#65039; Doa Favorit</h2><p>Doa yang kamu simpan untuk dibaca kapan saja</p></div>
+  <div class="fav-list" id="favList"></div>
+</div>
+
+<!-- TENTANG -->
+<div class="screen" id="screen-about">
+  <div class="abt-hdr">
+    <div class="logo">&#128332;</div>
+    <h2>40 Doa Hari Arafah</h2>
+    <p>Yayasan Ar-Rahmah Sulawesi &middot; 2026</p>
+    <div class="gold-pill" style="margin-top:10px;font-size:10px">&#10022; Baca &middot; Resapi &middot; Panjatkan &#10022;</div>
+  </div>
+  <div class="abt-body">
+    <div class="abt-card"><h3>Tentang Aplikasi</h3><p>Menghadirkan 40 doa pilihan untuk Hari Arafah &mdash; hari terbaik dalam setahun. Dilengkapi teks Arab, latin, terjemahan Indonesia, dan sumber dalil agar setiap doa dipanjatkan dengan penuh pemahaman dan keyakinan.</p></div>
+    <div class="abt-card"><h3>Fitur Unggulan</h3>
+      <div class="feat-grid">
+        <div class="feat-item"><div class="ico">&#128292;</div><p>Arab + Latin + Terjemahan</p></div>
+        <div class="feat-item"><div class="ico">&#128214;</div><p>Sumber Dalil</p></div>
+        <div class="feat-item"><div class="ico">&#10084;&#65039;</div><p>Simpan Favorit</p></div>
+        <div class="feat-item"><div class="ico">&#128269;</div><p>Pencarian Cepat</p></div>
+      </div>
+    </div>
+    <div class="abt-card"><h3>Pesan Istimewa</h3><p style="font-style:italic;color:#00253A;font-family:'Lora',Georgia,serif">&ldquo;Kadang hati tidak butuh banyak kata&hellip; hanya satu doa yang dipanjatkan dengan air mata.&rdquo;</p><p style="margin-top:10px">Semoga Hari Arafah kita diterima dan dosa-dosa kita diampuni. Aamiin Yaa Rabbal &lsquo;Aalamiin. &#129330;</p></div>
   </div>
 </div>
 
-<svg class="wave" viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-  <path d="M0,60 C360,0 1080,0 1440,60 L1440,0 L0,0 Z" fill="#1A6A9A" opacity="0.3"/>
-  <path d="M0,60 C480,10 960,50 1440,20 L1440,0 L0,0 Z" fill="#FAF8F3"/>
-</svg>
-
-<!-- MAIN -->
-<div class="main">
-
-  <!-- PREVIEW FEATURES -->
-  <div class="preview-section">
-    <p class="section-label">Apa yang ada di dalam aplikasi</p>
-    <div class="preview-grid">
-      <div class="preview-card">
-        <div class="preview-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-        </div>
-        <h4>Doa Harian</h4>
-        <p>40 hari dengan panduan dzikir pagi & petang</p>
-      </div>
-      <div class="preview-card">
-        <div class="preview-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-        </div>
-        <h4>Pengingat Waktu</h4>
-        <p>Notifikasi & timer ibadah harian</p>
-      </div>
-      <div class="preview-card">
-        <div class="preview-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-        </div>
-        <h4>Satu File</h4>
-        <p>Cukup simpan & buka — tidak perlu install apapun</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- FORM CARD -->
-  <div class="form-card" id="formCard">
-
-    <div class="form-header">
-      <div class="form-header-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-      </div>
-      <div>
-        <h2>Unduh Aplikasinya Gratis</h2>
-        <p>Isi data di bawah, file langsung terunduh otomatis</p>
-      </div>
-    </div>
-
-    <div class="form-body" id="formBody">
-      <form id="regForm" novalidate>
-
-        <div class="field">
-          <label for="nama">Nama Lengkap <span class="req">*</span></label>
-          <input type="text" id="nama" name="nama" placeholder="cth. Bunda Fatimah" autocomplete="name" required>
-        </div>
-
-        <div class="field">
-          <label for="domisili">Kota / Domisili <span class="req">*</span></label>
-          <input type="text" id="domisili" name="domisili" placeholder="cth. Makassar, Gowa, Mamuju..." required>
-        </div>
-
-        <div class="field">
-          <label for="wa">Nomor WhatsApp <span class="req">*</span></label>
-          <input type="tel" id="wa" name="wa" placeholder="cth. 08123456789" autocomplete="tel" required>
-          <p class="field-hint">Nomor aktif, bisa dihubungi via WA</p>
-        </div>
-
-        <button type="submit" class="btn-submit" id="btnSubmit">
-          <span class="btn-text" style="display:flex;align-items:center;gap:10px;">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            Unduh Aplikasi Sekarang
-          </span>
-          <div class="spinner"></div>
-        </button>
-
-        <p class="privacy-note">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          Data Anda aman dan tidak akan disalahgunakan
-        </p>
-
-      </form>
-    </div>
-
-    <!-- SUCCESS STATE -->
-    <div class="success-state" id="successState">
-      <div class="success-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-      </div>
-      <h3 id="greetName">Jazakallahu khairan, Bunda!</h3>
-      <p>File aplikasi doa sudah otomatis terunduh.<br>Semoga menjadi amal jariyah yang berkah. 🤲</p>
-
-      <!-- HOW TO USE -->
-      <div class="howto-card">
-        <h4>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-          Cara menggunakan aplikasi
-        </h4>
-        <ol class="step-list">
-          <li>
-            <span class="step-num">1</span>
-            <span>Cari file <strong>doa-arafah.html</strong> di folder <em>Downloads</em> di HP atau laptop Anda</span>
-          </li>
-          <li>
-            <span class="step-num">2</span>
-            <span>Ketuk / klik dua kali file tersebut — akan terbuka langsung di browser (Chrome, Firefox, Safari)</span>
-          </li>
-          <li>
-            <span class="step-num">3</span>
-            <span>Pilih hari yang sesuai, lalu ikuti panduan doa & dzikir yang tersedia</span>
-          </li>
-          <li>
-            <span class="step-num">4</span>
-            <span>Aplikasi bekerja <strong>offline</strong> — tidak perlu sambungan internet setelah diunduh</span>
-          </li>
-          <li>
-            <span class="step-num">5</span>
-            <span>Bagikan file ini ke anggota keluarga lain agar manfaatnya lebih luas 🌙</span>
-          </li>
-        </ol>
-      </div>
-
-      <button class="btn-download-again" onclick="triggerDownload()">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        Unduh ulang jika belum masuk
-      </button>
-    </div>
-
-  </div><!-- /form-card -->
-
-</div><!-- /main -->
-
-<div class="footer">
-  Dipersembahkan oleh <strong>Yayasan Ar-Rahmah Sulawesi</strong> · Makassar<br>
-  <span style="margin-top:4px; display:inline-block;">PAUD · SDIT · SMPIT · SMAIT Ar-Rahmah</span>
+<!-- BOTTOM NAV -->
+<div class="bot-nav">
+  <button class="nav-item active" id="nav-home" onclick="switchTab('home')"><span class="ni">&#127968;</span>Beranda</button>
+  <button class="nav-item" id="nav-doa" onclick="switchTab('home')"><span class="ni">&#128214;</span>Doa</button>
+  <button class="nav-item" id="nav-fav" onclick="switchTab('fav')"><span class="ni">&#10084;&#65039;</span>Favorit</button>
+  <button class="nav-item" id="nav-about" onclick="switchTab('about')"><span class="ni">&#8505;&#65039;</span>Tentang</button>
+</div>
 </div>
 
 <script>
-  // ══════════════════════════════════════════
-  //  KONFIGURASI — GANTI 2 NILAI INI
-  // ══════════════════════════════════════════
-  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwua9-B-OiJlhiaUZkrA4DZsUAXdhwOnENfBW9mnIaU87tDPERdz1rdhDkmd7UDN6CT/exec';
+var doas=[
+  {judul:"Sebaik-baik Bacaan di Hari Arafah",arab:"لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ",latin:"Laa ilaaha illallaahu wahdahu laa syariika lahu, lahul mulku wa lahul hamdu wa huwa 'alaa kulli syai'in qadiir",terjemah:"Tidak ada Tuhan yang berhak diibadahi selain Allah semata, tidak ada sekutu bagi-Nya. Milik-Nya seluruh kerajaan dan segala pujian. Dialah Yang Mahakuasa atas segala sesuatu.",sumber:"HR. Tirmidzi - Doa terbaik di Hari Arafah"},
+  {judul:"Doa Memohon Ampunan & Keluar dari Kesulitan",arab:"لَا إِلَهَ إِلَّا أَنْتَ سُبْحَانَكَ إِنِّي كُنْتُ مِنَ الظَّالِمِينَ",latin:"Laa ilaaha illaa anta subhaanaka innii kuntu minazh-zhaalimiin",terjemah:"Tidak ada Tuhan selain Engkau. Maha Suci Engkau, sesungguhnya aku termasuk orang-orang yang zalim.",sumber:"QS. Al-Anbiya': 87 - Doa Nabi Yunus"},
+  {judul:"Doa Memohon Surga & Perlindungan dari Neraka",arab:"اللَّهُمَّ إِنِّي أَسْأَلُكَ الْجَنَّةَ وَأَعُوذُ بِكَ مِنَ النَّارِ",latin:"Allahumma innii as-alukal jannata wa a'uudzu bika minan-naar",terjemah:"Ya Allah, aku memohon kepada-Mu surga, dan aku berlindung kepada-Mu dari siksa neraka.",sumber:"HR. Abu Dawud"},
+  {judul:"Doa Memohon Surga Firdaus Tanpa Hisab",arab:"اللَّهُمَّ إِنِّي أَسْأَلُكَ الْجَنَّةَ الْفِرْدَوْسَ الْأَعْلَى بِغَيْرِ حِسَابٍ وَلَا عَذَابٍ",latin:"Allahumma innii as-alukal jannatal firdausal a'laa bighairi hisaabin wa laa 'adzab",terjemah:"Ya Allah, sesungguhnya aku memohon kepada-Mu Surga Firdaus yang paling tinggi, tanpa hisab dan tanpa azab.",sumber:"Doa dari riwayat para ulama"},
+  {judul:"Doa Meminta Kebaikan Dunia & Akhirat",arab:"رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ",latin:"Robbanaa aatinaa fid dun-yaa hasanah, wa fil aakhiroti hasanah, wa qinaa 'adzaaban naar",terjemah:"Ya Allah, berikanlah kepada kami kebaikan di dunia, berikan pula kebaikan di akhirat, dan lindungilah kami dari siksa neraka.",sumber:"QS. Al-Baqarah: 201"},
+  {judul:"Doa Pembebasan Diri & Keluarga dari Neraka",arab:"اللَّهُمَّ أَعْتِقْ رِقَابَنَا وَرِقَابَ آبَائِنَا وَأُمَّهَاتِنَا مِنَ النَّارِ",latin:"Allahumma a'tiq riqaabanaa wa riqaaba aabaa'inaa wa ummahaatinaa minan-naar",terjemah:"Ya Allah, bebaskanlah kami dari api neraka, dan bebaskan pula ayah kami dan ibu kami dari api neraka.",sumber:"Doa yang dianjurkan pada malam-malam istimewa"},
+  {judul:"Doa Mensyukuri Nikmat & Memohon Keturunan Shaleh",arab:"رَبِّ أَوْزِعْنِي أَنْ أَشْكُرَ نِعْمَتَكَ الَّتِي أَنْعَمْتَ عَلَيَّ وَعَلَى وَالِدَيَّ وَأَنْ أَعْمَلَ صَالِحًا تَرْضَاهُ وَأَصْلِحْ لِي فِي ذُرِّيَّتِي إِنِّي تُبْتُ إِلَيْكَ وَإِنِّي مِنَ الْمُسْلِمِينَ",latin:"Rabbi awzi'nii an asykura ni'matakal latii an'amta 'alayya wa 'alaa waalidayya wa an a'mala shaalihan tardhaahu wa ashlih lii fii dzurriyyatii innii tubtu ilaika wa innii minal muslimiin",terjemah:"Wahai Rabbku, berilah aku petunjuk agar aku dapat mensyukuri nikmat-Mu yang telah Engkau limpahkan kepadaku dan kepada kedua orang tuaku, agar aku dapat berbuat kebajikan yang Engkau ridhoi; dan berilah aku kebaikan yang akan mengalir sampai kepada anak cucuku. Sungguh, aku bertobat kepada Engkau, dan sungguh aku termasuk orang muslim.",sumber:"QS. Al-Ahqaf: 15"},
+  {judul:"Doa Agar Allah Mempermudah Segala Urusan",arab:"اللَّهُمَّ رَحْمَتَكَ أَرْجُو، فَلَا تَكِلْنِي إِلَى نَفْسِي طَرْفَةَ عَيْنٍ، وَأَصْلِحْ لِي شَأْنِي كُلَّهُ، لَا إِلَهَ إِلَّا أَنْتَ",latin:"Allahumma rahmataka arjuu, falaa takilnii ilaa nafsii tharfata 'aynin, wa ashlih lii sya'nii kullahu, laa ilaaha illaa ant",terjemah:"Ya Allah, rahmat-Mu yang aku harapkan, maka jangan Engkau serahkan urusanku kepada diriku meskipun sekejap mata. Perbaikilah seluruh urusanku, tidak ada sesembahan yang berhak disembah kecuali Engkau.",sumber:"HR. Abu Dawud No. 5090"},
+  {judul:"Doa Memohon Ampun atas Segala Dosa",arab:"رَبَّنَا فَاغْفِرْ لَنَا ذُنُوبَنَا وَكَفِّرْ عَنَّا سَيِّئَاتِنَا، وَتَوَفَّنَا مَعَ الْأَبْرَارِ",latin:"Rabbanaa faghfirlanaa dzunuubanaa wa kaffir 'annaa sayyiaatinaa wa tawaffanaa maal abraar",terjemah:"Ya Tuhan kami, ampunilah dosa-dosa kami dan hapuskanlah kesalahan-kesalahan kami, dan matikanlah kami beserta orang-orang yang berbakti.",sumber:"QS. Ali 'Imran: 193"},
+  {judul:"Doa Memohon Ampunan (Doa Nabi Adam)",arab:"رَبَّنَا ظَلَمْنَا أَنْفُسَنَا وَإِن لَّمْ تَغْفِرْ لَنَا وَتَرْحَمْنَا لَنَكُونَنَّ مِنَ الْخَاسِرِينَ",latin:"Rabbanaa zhalamnaa anfusanaa, wa in lam taghfir lanaa wa tarhamnaa, lanakuunanna minal khaasiriin",terjemah:"Ya Tuhan kami, kami telah menzalimi diri kami sendiri. Jika Engkau tidak mengampuni kami dan memberi rahmat kepada kami, niscaya kami termasuk orang-orang yang rugi.",sumber:"QS. Al-A'raf: 23"},
+  {judul:"Doa Mohon Keteguhan Iman",arab:"رَبَّنَا لَا تُزِغْ قُلُوبَنَا بَعْدَ إِذْ هَدَيْتَنَا وَهَبْ لَنَا مِن لَّدُنكَ رَحْمَةً إِنَّكَ أَنتَ الْوَهَّابُ",latin:"Rabbanaa laa tuzigh quluubanaa ba'da idz hadaytanaa wahab lanaa mil ladunka rahmah, innakaantal wahhaab",terjemah:"Ya Tuhan kami, janganlah Engkau condongkan hati kami kepada kesesatan setelah Engkau berikan petunjuk kepada kami, dan karuniakanlah kepada kami rahmat dari sisi-Mu, sesungguhnya Engkau-lah Maha Pemberi.",sumber:"QS. Ali 'Imran: 8"},
+  {judul:"Doa Memohon Rezeki yang Halal",arab:"اللَّهُمَّ اكْفِنِي بِحَلَالِكَ عَن حَرَامِكَ وَأَغْنِنِي بِفَضْلِكَ عَمَّن سِوَاكَ",latin:"Allaahummakfinii bihalaalika 'an haraamika wa aghnini bifadlika 'amman siwaak",terjemah:"Ya Allah, cukupilah aku dengan rezeki-Mu yang halal sehingga aku terhindar dari yang haram, dan kayakanlah aku dengan karunia-Mu sehingga aku tidak bergantung kepada selain-Mu.",sumber:"HR. Tirmidzi"},
+  {judul:"Doa Agar Husnul Khatimah",arab:"اللَّهُمَّ إِنِّي أَسْأَلُكَ حُسْنَ الْخَاتِمَةِ",latin:"Allahumma innii as'aluka husnal khaatimah",terjemah:"Ya Allah, aku memohon kepada-Mu akhir hidup yang baik (husnul khatimah).",sumber:"Doa yang dianjurkan para ulama"},
+  {judul:"Doa Perlindungan dari Api Neraka",arab:"اللَّهُمَّ أَجِرْنِي مِنَ النَّارِ",latin:"Allahumma ajirnii minan-naar",terjemah:"Ya Allah, lindungi aku dari api neraka.",sumber:"HR. Abu Dawud - Dibaca 7x setelah Subuh & Maghrib"},
+  {judul:"Doa Memohon Kemudahan",arab:"اللَّهُمَّ لَا سَهْلَ إِلَّا مَا جَعَلْتَهُ سَهْلًا، وَأَنْتَ تَجْعَلُ الْحَزْنَ إِذَا شِئْتَ سَهْلًا",latin:"Allahumma laa sahla illaa maa ja'altahu sahlaa, wa anta taj'alul hazna idzaa syi'ta sahlaa",terjemah:"Ya Allah, tidak ada kemudahan kecuali apa yang Engkau jadikan mudah. Dan Engkau menjadikan kesulitan itu mudah jika Engkau menghendaki.",sumber:"HR. Ibnu Hibban"},
+  {judul:"Doa Memohon Diterimanya Amal (Doa Nabi Ibrahim)",arab:"رَبَّنَا تَقَبَّلْ مِنَّا إِنَّكَ أَنتَ السَّمِيعُ الْعَلِيمُ",latin:"Rabbanaa taqabbal minnaa innaka antassami'ul 'aliim",terjemah:"Ya Tuhan kami, terimalah (amal) dari kami. Sungguh, Engkaulah Yang Maha Mendengar, Maha Mengetahui.",sumber:"QS. Al-Baqarah: 127"},
+  {judul:"Doa Berlindung dari 4 Perkara",arab:"اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ عَذَابِ الْقَبْرِ وَمِنْ عَذَابِ النَّارِ، وَمِنْ فِتْنَةِ الْمَحْيَا وَالْمَمَاتِ، وَمِنْ شَرِّ فِتْنَةِ الْمَسِيحِ الدَّجَّالِ",latin:"Allahumma innii audzubika min 'adzabi jahannama wa min adzabil qabri wa min fitnatil mahya wal mamaati, wa min syarri fitnatil masihid dajjal",terjemah:"Ya Allah, sesungguhnya aku berlindung kepada-Mu dari siksa neraka Jahannam, dari siksa kubur, dari fitnah kehidupan dan kematian, dan dari kejahatan fitnah Al-Masih Dajjal.",sumber:"HR. Bukhari & Muslim"},
+  {judul:"Doa untuk Ilmu yang Bermanfaat",arab:"اللَّهُمَّ إِنِّي أَسْأَلُكَ عِلْمًا نَافِعًا وَرِزْقًا طَيِّبًا وَعَمَلًا مُتَقَبَّلًا",latin:"Allahumma innii as-aluka 'ilman naafi'a wa rizqan thayyibaa wa 'amalan mutaqabbalaa",terjemah:"Ya Allah, sesungguhnya aku memohon kepada-Mu ilmu yang bermanfaat, rezeki yang baik (halal), dan amal yang diterima.",sumber:"HR. Ibnu Majah"},
+  {judul:"Doa Memohon Hisab yang Mudah",arab:"اللَّهُمَّ حَاسِبْنِي حِسَابًا يَسِيرًا",latin:"Allahumma haasibnii hisaabay yasiiraa",terjemah:"Ya Allah, hisablah aku dengan hisab (perhitungan) yang mudah.",sumber:"HR. Ahmad & Al-Hakim"},
+  {judul:"Doa Berlindung dari Hilangnya Nikmat",arab:"اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِن زَوَالِ نِعْمَتِكَ، وَتَحَوُّلِ عَافِيَتِكَ، وَفُجَاءَةِ نِقْمَتِكَ، وَجَمِيعِ سَخَطِكَ",latin:"Allahumma innii a'udzu bika min zawaali ni'matik, wa tahawwuli 'aafiyatik, wa fuja'ati niqmatik, wa jami'i sakhatik",terjemah:"Ya Allah, sesungguhnya aku berlindung kepada-Mu dari hilangnya kenikmatan yang telah Engkau berikan, dari berubahnya kesehatan, dari datangnya siksa secara tiba-tiba, dan dari semua kemurkaan-Mu.",sumber:"HR. Muslim"},
+  {judul:"Doa untuk Kedua Orang Tua dan Orang Beriman",arab:"رَبَّنَا اغْفِرْ لِي وَلِوَالِدَيَّ وَلِلْمُؤْمِنِينَ يَوْمَ يَقُومُ الْحِسَابُ",latin:"Rabbanaghfir lii wa liwaalidayya wa lil mu'miniina yauma yaquumul hisaab",terjemah:"Ya Tuhan kami, ampunilah aku dan kedua ibu bapakku dan orang-orang yang beriman pada hari terjadinya hisab (hari kiamat).",sumber:"QS. Ibrahim: 41"},
+  {judul:"Doa Agar Diberi Keteguhan Hati dan Iman",arab:"يَا مُقَلِّبَ الْقُلُوبِ ثَبِّتْ قَلْبِي عَلَى دِينِكَ",latin:"Yaa muqollibal quluub, tsabbit qolbii 'alaa diinik",terjemah:"Wahai Dzat yang membolak-balikkan hati, tetapkanlah hatiku di atas agama-Mu.",sumber:"HR. Tirmidzi"},
+  {judul:"Doa Memohon Pasangan dan Keturunan yang Baik",arab:"رَبَّنَا هَبْ لَنَا مِنْ أَزْوَاجِنَا وَذُرِّيَّاتِنَا قُرَّةَ أَعْيُنٍ وَاجْعَلْنَا لِلْمُتَّقِينَ إِمَامًا",latin:"Rabbana hab lanaa min azwaajinaaa wa dzurriyyaatinaa qurrata a'yun waj'alnaa lil muttaqiina imaama",terjemah:"Ya Tuhan kami, anugerahkanlah kepada kami pasangan dan keturunan yang menyejukkan hati, dan jadikanlah kami pemimpin bagi orang-orang yang bertakwa.",sumber:"QS. Al-Furqan: 74"},
+  {judul:"Doa Mohon Ampunan Diri dan Orang Tua",arab:"رَبِّ اغْفِرْ لِي وَلِوَالِدَيَّ وَلِمَن دَخَلَ بَيْتِيَ مُؤْمِنًا وَلِلْمُؤْمِنِينَ وَالْمُؤْمِنَاتِ",latin:"Rabbighfir lii wa liwaalidayya wa liman dakhala baytiya mu'minan wa lil mu'miniina wal mu'minaat",terjemah:"Ya Tuhanku, ampunilah aku, ibu bapakku, dan siapa saja yang masuk ke rumahku dalam keadaan beriman, serta semua orang mukmin laki-laki dan perempuan.",sumber:"QS. Nuh: 28"},
+  {judul:"Doa Agar Allah Meringankan Musibah",arab:"رَبَّنَا وَلَا تُحَمِّلْنَا مَا لَا طَاقَةَ لَنَا بِهِ وَاعْفُ عَنَّا وَاغْفِرْ لَنَا وَارْحَمْنَا",latin:"Rabbanaa wa laa tuhammilnaa maa laa thaaqata lanaa bihi wa'fu 'annaa waghfir lanaa warhamnaa",terjemah:"Ya Rabb kami, janganlah Engkau pikulkan kepada kami apa yang tidak sanggup kami memikulnya. Maafkanlah kami, ampunilah kami, dan rahmatilah kami.",sumber:"QS. Al-Baqarah: 286"},
+  {judul:"Doa Memohon Petunjuk dan Kemudahan",arab:"رَبَّنَا آتِنَا مِن لَّدُنكَ رَحْمَةً وَهَيِّئْ لَنَا مِنْ أَمْرِنَا رَشَدًا",latin:"Rabbanaa aatinaa mil ladunka rahmatan wa hayyi' lanaa min amrinaa rasyadaa",terjemah:"Ya Tuhan kami, anugerahkanlah rahmat kepada kami dari sisi-Mu dan berilah petunjuk yang benar dalam urusan kami.",sumber:"QS. Al-Kahfi: 10"},
+  {judul:"Doa Agar Diberi Kekuatan dan Kesabaran",arab:"رَبَّنَا أَفْرِغْ عَلَيْنَا صَبْرًا وَثَبِّتْ أَقْدَامَنَا وَانصُرْنَا عَلَى الْقَوْمِ الْكَافِرِينَ",latin:"Rabbanaa afrigh 'alainaa shabran wa tsabbit aqdaamanaa wansurnaa 'alal qawmil kaafiriin",terjemah:"Ya Tuhan kami, limpahkanlah kesabaran kepada kami, teguhkanlah pendirian kami, dan tolonglah kami terhadap kaum yang kafir.",sumber:"QS. Al-Baqarah: 250"},
+  {judul:"Doa untuk Kemudahan Urusan dan Kelancaran Bicara",arab:"رَبِّ اشْرَحْ لِي صَدْرِي وَيَسِّرْ لِي أَمْرِي وَاحْلُلْ عُقْدَةً مِّن لِّسَانِي يَفْقَهُوا قَوْلِي",latin:"Rabbi isyrah lii shadrii wa yassir lii amrii wahlul 'uqdatan mil lisaanii yafqahuu qawlii",terjemah:"Ya Tuhanku, lapangkanlah dadaku, mudahkanlah urusanku, dan lepaskanlah kekakuan dari lidahku agar mereka mengerti perkataanku.",sumber:"QS. Taha: 25-28"},
+  {judul:"Doa Ketika Kesulitan Rezeki",arab:"اللَّهُمَّ إِنِّي أَسْأَلُكَ مِن فَضْلِكَ وَرَحْمَتِكَ، فَإِنَّهُ لَا يَمْلِكُهَا إِلَّا أَنْتَ",latin:"Allaahumma innii as-aluka min fadhlika wa rohmatik, fa-innahu laa yamlikuhaa illaa anta",terjemah:"Ya Allah, aku memohon kepada-Mu tambahan karunia-Mu dan rahmat-Mu, karena sesungguhnya tidak ada yang memilikinya kecuali Engkau.",sumber:"HR. Thabrani, Al-Mu'jam Al-Kabir No. 10379"},
+  {judul:"Doa Memohon Keturunan yang Baik",arab:"رَبِّ هَبْ لِي مِن لَّدُنكَ ذُرِّيَّةً طَيِّبَةً إِنَّكَ سَمِيعُ الدُّعَاءِ",latin:"Rabbi hablii milladunka dzurriyyatan thayyibah, innaka samii'ud du'aa'",terjemah:"Wahai Rabbku, berilah aku keturunan yang baik dari sisi-Mu, sesungguhnya Engkau Maha Mendengar doa.",sumber:"QS. Ali 'Imran: 38"},
+  {judul:"Doa Agar Diri dan Anak Keturunan Menegakkan Shalat",arab:"رَبِّ اجْعَلْنِي مُقِيمَ الصَّلَاةِ وَمِن ذُرِّيَّتِي رَبَّنَا وَتَقَبَّلْ دُعَاءِ",latin:"Rabbij'alnii muqiimash shallaati wa min dzurriyyatii, rabbanaa wa taqabbal du'aa'",terjemah:"Wahai Rabbku, jadikanlah aku dan anak cucuku orang-orang yang tetap mendirikan shalat, wahai Rabb kami, perkenankanlah doaku.",sumber:"QS. Ibrahim: 40"},
+  {judul:"Doa Agar Dijauhkan dari Sifat Dengki",arab:"رَبَّنَا اغْفِرْ لَنَا وَلِإِخْوَانِنَا الَّذِينَ سَبَقُونَا بِالْإِيمَانِ وَلَا تَجْعَلْ فِي قُلُوبِنَا غِلًّا لِّلَّذِينَ آمَنُوا رَبَّنَا إِنَّكَ رَءُوفٌ رَّحِيمٌ",latin:"Rabbanaaghfir lanaa wa li-ikhwaaninal ladziina sabaquunaa bil-imaani wa laa taj'al fii quluubinaa ghillan lil-ladziina aamanuu rabbanaa innaka ra'uufur rahiim",terjemah:"Wahai Rabb kami, beri ampunlah kami dan saudara-saudara kami yang telah beriman lebih dulu dari kami, dan janganlah Engkau membiarkan kedengkian dalam hati kami. Sesungguhnya Engkau Maha Penyantun lagi Maha Penyayang.",sumber:"QS. Al-Hasyr: 10"},
+  {judul:"Doa Agar Dikaruniai Anak yang Shalih/Shalihah",arab:"رَبِّ هَبْ لِي مِنَ الصَّالِحِينَ",latin:"Rabbi hablii minash shaalihiin",terjemah:"Wahai Rabbku, anugerahkanlah kepadaku (seorang anak) yang termasuk orang-orang yang shalih.",sumber:"QS. Ash-Shaffat: 100"},
+  {judul:"Doa Berlindung dari Kesyirikan",arab:"اللَّهُمَّ إِنَّ أَعُوذُ بِكَ أَن أُشْرِكَ بِكَ وَأَنَا أَعْلَمُ وَأَسْتَغْفِرُكَ لِمَا لَا أَعْلَمُ",latin:"Allahumma innii a'udzubika an usyrika bika wa anaa a'lam, wa astaghfiruka li maa laa a'lam",terjemah:"Ya Allah, sesungguhnya aku berlindung kepada-Mu dari perbuatan menyekutukan-Mu dengan sengaja, dan aku mohon ampunan dari sesuatu yang aku tidak mengetahuinya.",sumber:"HR. Bukhari"},
+  {judul:"Doa Memohon Kebaikan di Seluruh Perkara",arab:"يَا حَيُّ يَا قَيُّومُ بِرَحْمَتِكَ أَسْتَغِيثُ وَأَصْلِحْ لِي شَأْنِي كُلَّهُ وَلَا تَكِلْنِي إِلَى نَفْسِي طَرْفَةَ عَيْنٍ أَبَدًا",latin:"Yaa hayyu yaa qayyumu birahmatika astaghiitsu wa ashlih lii sya'nii kullahu wa laa takilnii ilaa nafsii tharfata 'aynin abadaa",terjemah:"Wahai Rabb Yang Maha Hidup, wahai Rabb Yang Berdiri Sendiri, dengan rahmat-Mu aku minta pertolongan, perbaikilah segala urusanku dan jangan diserahkan kepadaku walau sekejap mata.",sumber:"HR. Ibnu As-Sunni"},
+  {judul:"Doa Mengharapkan Cinta Allah & Seluruh Kebaikan",arab:"اللَّهُمَّ إِنِّي أَسْأَلُكَ حُبَّكَ وَحُبَّ مَن يُحِبُّكَ وَحُبَّ عَمَلٍ يُقَرِّبُ إِلَى حُبِّكَ",latin:"Allahumma innii as aluka hubbaka wa hubba man yuhibbuka wa hubba 'amalin yuqorribu ilaa hubbika",terjemah:"Ya Allah, aku memohon agar dapat mencintai-Mu, dan mencintai orang-orang yang mencintai-Mu, dan mencintai amal yang dapat mendekatkan diriku kepada cinta-Mu.",sumber:"HR. Tirmidzi"},
+  {judul:"Doa Agar Hati Ditetapkan dalam Hidayah",arab:"رَبَّنَا لَا تُزِغْ قُلُوبَنَا بَعْدَ إِذْ هَدَيْتَنَا وَهَبْ لَنَا مِن لَّدُنكَ رَحْمَةً إِنَّكَ أَنتَ الْوَهَّابُ",latin:"Robbanaa laa tuzigh quluubanaa ba'da idz hadaytanaa wa hablanaa min ladunka rohmatan innaka antal wahhaab",terjemah:"Ya Rabb kami, janganlah Engkau jadikan hati kami condong kepada kesesatan sesudah Engkau beri petunjuk kepada kami, dan karuniakanlah kepada kami rahmat dari sisi Engkau; karena sesungguhnya Engkau-lah Maha Pemberi.",sumber:"QS. Ali Imran: 8"},
+  {judul:"Doa Mohon Keberkahan Rezeki",arab:"اللَّهُمَّ بَارِكْ لِي فِي رِزْقِي، وَوَسِّعْ عَلَيَّ، وَارْزُقْنِي مِنْ حَيْثُ لَا أَحْتَسِبُ",latin:"Allahumma baarik lii fii rizqii, wa wassi' 'alayya, urzuqnii min haytsu lahtasib",terjemah:"Ya Allah, berkahilah rezekiku, luaskanlah (rezeki) atasku, dan berikanlah aku rezeki dari arah yang tidak disangka-sangka.",sumber:"Doa yang dianjurkan para ulama"},
+  {judul:"Doa Perlindungan dari Segala Arah",arab:"اللَّهُمَّ احْفَظْنِي مِن بَيْنِ يَدَيَّ، وَمِنْ خَلْفِي، وَعَنْ يَمِينِي، وَعَن شِمَالِي، وَمِنْ فَوْقِي، وَأَعُوذُ بِعَظَمَتِكَ أَن أُغْتَالَ مِن تَحْتِي",latin:"Allahummah-faznii min baini yadayya wa min khalfii, wa 'an yamiinii wa 'an syimaalii wa min fawqii, wa a'udzu bi'azhamatika an ughtala min tahtii",terjemah:"Ya Allah, jagalah aku dari depan, belakang, kanan, kiri, dan aku berlindung dengan keagungan-Mu agar aku tidak diserang dari bawahku.",sumber:"HR. Abu Dawud & Ibnu Majah"},
+  {judul:"Doa Meminta Rezeki yang Banyak pada Yang Maha Memberi",arab:"اللَّهُمَّ أَكْثِرْ مَالِي، وَوَلَدِي، وَبَارِكْ لِي فِيمَا أَعْطَيْتَنِي وَأَطِلَّ حَيَاتِي عَلَى طَاعَتِكَ، وَأَحْسِنْ عَمَلِي وَاغْفِرْ لِي",latin:"Allahumma aktsir maalii, wa waladii, wa baarik lii fiimaa a'thaitanii wa ath-illa hayaatii 'alaa thaa'atika, wa ahsin 'amalii waghfir lii",terjemah:"Ya Allah, perbanyaklah harta dan anakku serta berkahilah karunia yang Engkau beri. Panjangkanlah umurku dalam ketaatan pada-Mu, baguskanlah amalku, serta ampunilah dosa-dosaku.",sumber:"HR. Bukhari No. 6334 - Doa Rasulullah untuk Anas bin Malik"}
+];
 
-  const GDRIVE_DOWNLOAD_URL = 'https://drive.google.com/uc?export=download&id=1JdPPbmKK9VM7Ok1xNDfeKO_0mSoLsXeD';
-  // ══════════════════════════════════════════
-
-  function triggerDownload() {
-    const a = document.createElement('a');
-    a.href = GDRIVE_DOWNLOAD_URL;
-    a.download = 'doa-arafah.html';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
+/* Favorites — with try/catch & sessionStorage fallback for browsers that block localStorage */
+var favorites=[];
+function loadFavs(){
+  try{
+    var s=localStorage.getItem('arRahmahDoa');
+    if(s)favorites=JSON.parse(s);
+  }catch(e){
+    try{
+      var s2=sessionStorage.getItem('arRahmahDoa');
+      if(s2)favorites=JSON.parse(s2);
+    }catch(e2){}
   }
-
-  function showSuccess(nama) {
-    const sapaan = nama.toLowerCase().includes('bapak') || nama.toLowerCase().includes('ayah')
-      ? 'Jazakallahu khairan, ' + nama + '!'
-      : 'Jazakillahu khairan, ' + nama + '!';
-    document.getElementById('greetName').textContent = sapaan;
-    document.getElementById('formBody').classList.add('hidden');
-    document.getElementById('successState').classList.add('active');
+}
+function saveFavs(){
+  try{localStorage.setItem('arRahmahDoa',JSON.stringify(favorites));}catch(e){
+    try{sessionStorage.setItem('arRahmahDoa',JSON.stringify(favorites));}catch(e2){}
   }
+}
+loadFavs();
+var cur=0;
 
-  document.getElementById('regForm').addEventListener('submit', async function(e) {
-    e.preventDefault();
+function renderList(data){
+  var L=document.getElementById('doaList');
+  if(!data||!data.length){
+    L.innerHTML='<div style="text-align:center;padding:40px 20px;color:#78909C;font-size:14px">&#128269; Doa tidak ditemukan</div>';
+    return;
+  }
+  var html='<div class="sec-label">Semua Doa ('+data.length+')</div>';
+  for(var i=0;i<data.length;i++){
+    var d=data[i];
+    var ri=doas.indexOf(d);
+    var isFav=favorites.indexOf(ri)!==-1;
+    html+='<div class="doa-card" onclick="cardClick(event,'+ri+')" style="-webkit-animation-delay:'+(i*0.03)+'s;animation-delay:'+(i*0.03)+'s">'+
+      '<div class="doa-num">'+(ri+1)+'</div>'+
+      '<div class="doa-info">'+
+        '<div class="doa-title">'+d.judul+'</div>'+
+        '<div class="doa-preview">'+d.arab.substring(0,45)+'...</div>'+
+      '</div>'+
+      '<button class="fav-btn" data-idx="'+ri+'" onclick="tFavC(event,'+ri+')">'+(isFav?'&#10084;&#65039;':'&#129293;')+'</button>'+
+      '<div class="doa-arrow">&#8250;</div>'+
+    '</div>';
+  }
+  L.innerHTML=html;
+}
 
-    const nama     = document.getElementById('nama').value.trim();
-    const domisili = document.getElementById('domisili').value.trim();
-    const wa       = document.getElementById('wa').value.trim();
+function cardClick(e,ri){
+  if(e.target&&e.target.classList&&e.target.classList.contains('fav-btn'))return;
+  openDet(ri);
+}
 
-    if (!nama || !domisili || !wa) {
-      alert('Mohon lengkapi semua data terlebih dahulu.');
-      return;
+function filterDoa(){
+  var q=document.getElementById('searchInput').value.toLowerCase();
+  if(!q){renderList(doas);return;}
+  var filtered=[];
+  for(var i=0;i<doas.length;i++){
+    var d=doas[i];
+    if(d.judul.toLowerCase().indexOf(q)!==-1||d.latin.toLowerCase().indexOf(q)!==-1||d.terjemah.toLowerCase().indexOf(q)!==-1){
+      filtered.push(d);
     }
+  }
+  renderList(filtered);
+}
 
-    const btn = document.getElementById('btnSubmit');
-    btn.classList.add('loading');
-    btn.disabled = true;
+function tFavC(e,ri){
+  if(e&&e.stopPropagation)e.stopPropagation();
+  var idx=favorites.indexOf(ri);
+  if(idx===-1)favorites.push(ri);else favorites.splice(idx,1);
+  saveFavs();filterDoa();rFav();uFavBtn();
+}
 
-    // 1. Trigger download DULU sebelum fetch (agar tidak diblokir popup blocker)
-    triggerDownload();
+function toggleDetailFav(){
+  var idx=favorites.indexOf(cur);
+  if(idx===-1)favorites.push(cur);else favorites.splice(idx,1);
+  saveFavs();filterDoa();rFav();uFavBtn();
+}
 
-    // 2. Simpan data ke Google Sheets
-    try {
-      const formData = new FormData();
-      formData.append('nama',     nama);
-      formData.append('domisili', domisili);
-      formData.append('wa',       wa);
-      formData.append('waktu',    new Date().toLocaleString('id-ID', {timeZone: 'Asia/Makassar'}));
+function uFavBtn(){
+  var b=document.getElementById('detailFavBtn');
+  if(b)b.innerHTML=favorites.indexOf(cur)!==-1?'&#10084;&#65039;':'&#129293;';
+}
 
-      await fetch(APPS_SCRIPT_URL, {
-        method: 'POST',
-        body: formData,
-        mode: 'no-cors'
-      });
-    } catch (err) {
-      console.warn('Gagal simpan data:', err);
-      // Download tetap jalan meski fetch gagal
-    }
+function openDet(i){cur=i;rDet();showS('detail');var db=document.getElementById('detailBody');if(db)db.scrollTop=0;}
 
-    btn.classList.remove('loading');
-    btn.disabled = false;
-    showSuccess(nama);
-  });
+function rDet(){
+  var d=doas[cur];
+  var tot=doas.length;
+  var pct=((cur+1)/tot*100).toFixed(1);
+  document.getElementById('detailTitle').textContent=d.judul;
+  document.getElementById('detailNum').textContent=(cur+1)+'/'+tot;
+  var pf=document.getElementById('progressFill');if(pf)pf.style.width=pct+'%';
+  uFavBtn();
+  var prevDis=cur===0?' disabled':'';
+  var nxtLbl=cur===tot-1?'&#127968; Selesai':'Berikutnya &#8594;';
+  document.getElementById('detailBody').innerHTML=
+    '<div class="arabic-card"><div class="arabic-text">'+d.arab+'</div></div>'+
+    '<div class="lat-card"><div class="card-lbl">&#10022; Lafaz Latin</div><div class="lat-text">'+d.latin+'</div></div>'+
+    '<div class="trn-card"><div class="card-lbl">&#10022; Terjemahan Indonesia</div><div class="trn-text">'+d.terjemah+'</div></div>'+
+    '<div class="src-badge"><span>&#128214;</span><span>'+d.sumber+'</span></div>'+
+    '<div class="act-row">'+
+      '<button class="act-btn" onclick="shareD()"><div class="ico">&#128279;</div><div class="lbl">Bagikan</div></button>'+
+      '<button class="act-btn" onclick="copyD()"><div class="ico">&#128203;</div><div class="lbl">Salin</div></button>'+
+      '<button class="act-btn" onclick="toggleDetailFav()"><div class="ico">&#10084;&#65039;</div><div class="lbl">Favorit</div></button>'+
+    '</div>'+
+    '<div class="nav-row">'+
+      '<button class="nav-btn prev"'+prevDis+' onclick="navD(-1)">&#8592; Sebelumnya</button>'+
+      '<button class="nav-btn nxt" onclick="navD(1)">'+nxtLbl+'</button>'+
+    '</div>'+
+    '<div class="doa-footer">&#8212; Doa '+(cur+1)+' dari '+tot+' &#8212;</div>';
+}
+
+function navD(dir){
+  var n=cur+dir;
+  if(n<0)return;
+  if(n>=doas.length){goHome();return;}
+  cur=n;rDet();
+  var db=document.getElementById('detailBody');if(db)db.scrollTop=0;
+}
+
+function shareD(){
+  var d=doas[cur];
+  var t=d.judul+'\n\n'+d.arab+'\n\n'+d.latin+'\n\nArtinya: '+d.terjemah+'\n\nSumber: '+d.sumber+'\n\n- 40 Doa Hari Arafah, Ar-Rahmah Sulawesi';
+  if(navigator.share){navigator.share({text:t});}
+  else if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(t).then(function(){alert('Doa disalin ke clipboard!');});
+  }else{
+    var ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);alert('Doa disalin!');
+  }
+}
+
+function copyD(){
+  var d=doas[cur];
+  var t=d.judul+'\n'+d.arab+'\n'+d.latin+'\nArtinya: '+d.terjemah+'\nSumber: '+d.sumber;
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(t).then(function(){alert('Teks doa berhasil disalin!');});
+  }else{
+    var ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);alert('Teks doa berhasil disalin!');
+  }
+}
+
+function goHome(){showS('home');setNav('home');}
+
+function rFav(){
+  var L=document.getElementById('favList');
+  if(!L)return;
+  if(!favorites||!favorites.length){
+    L.innerHTML='<div class="empty"><div class="emo">&#129293;</div><p>Belum ada doa favorit.<br>Ketuk ikon &#129293; untuk menyimpan.</p></div>';
+    return;
+  }
+  var html='<div class="sec-label">Tersimpan ('+favorites.length+')</div>';
+  for(var i=0;i<favorites.length;i++){
+    var ri=favorites[i];
+    var d=doas[ri];
+    html+='<div class="doa-card" onclick="favCardClick(event,'+ri+')">'+
+      '<div class="doa-num">'+(ri+1)+'</div>'+
+      '<div class="doa-info">'+
+        '<div class="doa-title">'+d.judul+'</div>'+
+        '<div class="doa-preview">'+d.arab.substring(0,45)+'...</div>'+
+      '</div>'+
+      '<button class="fav-btn" data-idx="'+ri+'" onclick="tFavC(event,'+ri+')">&#10084;&#65039;</button>'+
+      '<div class="doa-arrow">&#8250;</div>'+
+    '</div>';
+  }
+  L.innerHTML=html;
+}
+
+function favCardClick(e,ri){
+  if(e.target&&e.target.classList&&e.target.classList.contains('fav-btn'))return;
+  openDet(ri);switchTab('home');
+}
+
+function showS(n){
+  var screens=document.querySelectorAll('.screen');
+  for(var i=0;i<screens.length;i++)screens[i].classList.remove('active');
+  var el=document.getElementById('screen-'+n);
+  if(el)el.classList.add('active');
+}
+
+function setNav(n){
+  var items=document.querySelectorAll('.nav-item');
+  for(var i=0;i<items.length;i++)items[i].classList.remove('active');
+  var map={home:'nav-home',fav:'nav-fav',about:'nav-about'};
+  var el=document.getElementById(map[n]);
+  if(el)el.classList.add('active');
+}
+
+function switchTab(n){
+  if(n==='fav')rFav();
+  showS(n);setNav(n);
+}
+
+/* Init */
+renderList(doas);
 </script>
-
 </body>
 </html>
